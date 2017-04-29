@@ -45,7 +45,7 @@ j = 300
 j = "oi"
 ```
 
-Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar tanto Tipagem Dinâmica quanto estática sem menores problemas. Note que o código acima irá exibir um error por causa da tipagem estática que foi feita.
+Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar tanto tipagem dinâmica quanto estática sem menores problemas. Note que o código acima irá exibir um error por causa da tipagem estática que foi feita.
 
 * Orientada a objetos: A linguagem Groovy é baseada no Java e apresenta grande compatibilidade com ele. O recurso da orientação a objetos, portanto, faz parte do Groovy.
 
@@ -80,7 +80,7 @@ public class AnimalSounds {
 
 * A maioria dos comandos em Java podem ser utilizados no Groovy.
 
-* O Groovy possui suporte a Closures, tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ) dentre muitas outras funcionalidades.
+* O Groovy possui suporte a Closures, tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ), dentre muitas outras funcionalidades.
 
 Com isto fica claro que o Groovy é mais expressivo em relação ao Java, as poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
 
@@ -93,7 +93,11 @@ int[] array = {1,2,3}
 **Inicialização de Vetor em Groovy:**
 
 ``` Groovy
+// Tipagem Estática
 int[] array = [1,2,3]
+
+// Tipagem Dinâmica
+array = [1,2,3]
 ```
 
 * Em Groovy as Chaves ( **{ }** ) são reservadas para o uso em Closures, por isso a mudança na sintaxe.  

@@ -55,6 +55,27 @@ Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar ta
 
 * Linguagem de Script: Por ser uma linguagem de script, podemos, por exemplo, utilizar o código Groovy nas aplicações Java já existentes.
 
+**Exemplo de Java e Groovy Misturados:**
+
+``` Groovy
+public class AnimalSounds {
+
+    public static void main(String[] args){     
+       
+        HashMap<String,String> animals = new HashMap<>();
+
+        animals.put("Cachorro","AuAu")
+        animals.put("Gato","Miau")
+
+        animals.each{ animal, animalSound->
+
+            System.out.println("Animal: " + animal + "\tSom: " + animalSound)
+
+        }
+    } 
+}​
+```
+
 # Expressividade em Relação ao Java
 
 * A maioria dos comandos em Java podem ser utilizados no Groovy.
@@ -112,7 +133,7 @@ name = "Igor"
 println "Hello, $name"
 ```
 
-Ou em programas mais complexos, como por exemplo utilizar expressões regulares para filtrar resultados em uma Lista.
+Ou em programas mais complexos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista.
 
 **regEx.java**
 
@@ -169,6 +190,9 @@ Sua facilidade de uso e seus diversos recursos para facilitar a vida do programa
 # Bibliografia
 
 http://groovy-lang.org/
+
 http://radio-weblogs.com/0112098/2003/08/29.html
+
 https://en.wikipedia.org/wiki/Groovy_(programming_language)
+
 https://pt.wikipedia.org/wiki/Groovy

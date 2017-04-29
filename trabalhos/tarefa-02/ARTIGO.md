@@ -3,7 +3,7 @@
 A Linguagem Groovy foi idealizada por James Strachan em 2003. Por volta de Agosto ele publicou em um Blog pessoal sobre a nova Linguagem em que estava trabalhando, chamada Groovy. Nesta publicação ele já deixava claro quais eram as influências e objetivos para o Groovy.
 
 ``` groovy
-"Linguagens de tipagens dinâmicas como Ruby e Python estão ficando bastante populares pelo visto. Eu ainda não estou convencido que todos nós devemos mover para linguagens de tipagens dinâmicas tão cedo, entretanto eu não vejo rasão para que não possamos usar tanto linguagens de tipagem dinâmica quanto tipagem estática e escolher a melhor ferramenta para o trabalho."
+"Linguagens de tipagens dinâmicas como Ruby e Python estão ficando bastante populares pelo visto. Eu ainda não estou convencido que todos nós devemos mover para linguagens de tipagens dinâmicas tão cedo, entretanto eu não vejo razão para que não possamos usar tanto linguagens de tipagem dinâmica quanto tipagem estática e escolher a melhor ferramenta para o trabalho."
 
 "Eu preferiria uma Linguagem Dinâmica que executasse em cima de todo esse monte de código Java por aí e na JVM."
 
@@ -45,7 +45,7 @@ j = 300
 j = "oi"
 ```
 
-Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar tanto tipagem dinâmica quanto estática sem menores problemas. Note que o código acima irá exibir um error por causa da tipagem estática que foi feita.
+Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar tanto tipagem dinâmica quanto estática sem menores problemas. Note que o código acima irá exibir um error por causa da tipagem estática que foi utilizada.
 
 * Orientada a objetos: A linguagem Groovy é baseada no Java e apresenta grande compatibilidade com ele. O recurso da orientação a objetos, portanto, faz parte do Groovy.
 

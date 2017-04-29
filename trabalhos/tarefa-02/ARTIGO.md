@@ -137,7 +137,6 @@ name = "Igor"
 println "Hello, $name"
 ```
 
-Ou em programas mais complexos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista.
 
 **regEx.java**
 
@@ -146,7 +145,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /**
 
-	Classe que filtra Listas de Wifi que contém um certo padrão utilizando Expressão Regular.
+	Classe que filtra Lista Wifi por uma Regra de Formação Específica.
 
 */
 public class regEx {

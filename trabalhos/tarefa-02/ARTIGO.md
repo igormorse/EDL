@@ -80,7 +80,7 @@ public class AnimalSounds {
 
 * A maioria dos comandos em Java podem ser utilizados no Groovy.
 
-* O Groovy possui suporte a Closures, tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ).
+* O Groovy possui suporte a Closures, tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ) dentre muitas outras funcionalidades.
 
 Com isto fica claro que o Groovy é mais expressivo em relação ao Java, as poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
 
@@ -196,3 +196,5 @@ http://radio-weblogs.com/0112098/2003/08/29.html
 https://en.wikipedia.org/wiki/Groovy_(programming_language)
 
 https://pt.wikipedia.org/wiki/Groovy
+
+http://grails.asia/groovy-each-examples

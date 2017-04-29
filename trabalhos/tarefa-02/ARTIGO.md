@@ -137,6 +137,7 @@ name = "Igor"
 println "Hello, $name"
 ```
 
+Ou em programas mais complexos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista, neste caso é uma Lista com nomes de Wifi's. ( Os exemplos abaixo apresentarão o Código para imprimir, dado uma lista de nomes do tipo String, apenas os nomes com a seguinte formação: " UERJ- + Número de 1 a 9 + andar ". Ex: UERJ-3andar. )
 
 **regEx.java**
 

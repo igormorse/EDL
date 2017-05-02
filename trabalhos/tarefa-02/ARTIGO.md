@@ -27,8 +27,8 @@ Outras linguagens que influenciaram o Groovy:
 
 * Tipagem Dinâmica e Estática: O Groovy foi projetado para que pudessemos escolher o melhor dos dois mundos, sendo assim, o programador possui a liberdade de escolher utilizar quaisquer desses dois recursos quando bem entender. No Java só podemos utilizar a Tipagem Estática.
 
+**DataType.groovy** ( http://ideone.com/DzTLue )
 ``` Groovy
-
 // Tipagem dinâmica
 i = 10001
 i = false
@@ -49,7 +49,7 @@ Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar ta
 
 * Orientada a objetos: A linguagem Groovy é baseada no Java e apresenta grande compatibilidade com ele. O recurso da orientação a objetos, portanto, faz parte do Groovy.
 
-* Funcional: Groovy oferece todo o recurso de programação funcional, ao contrário do Java.
+* Funcional: Groovy oferece todo o recurso de programação funcional através de Closures, assim como o Java com Expressão Lambda.
 
 * Imperativa: Podemos utilizar quaisquer recursos que uma linguagem imperativa oferece, como loops.
 
@@ -57,6 +57,7 @@ Pelo exemplo acima, podemos perceber que em um mesmo código podemos misturar ta
 
 **Exemplo de Java e Groovy Misturados:**
 
+**AnimalSound.groovy** ( http://ideone.com/13Hh8E )
 ``` Groovy
 public class AnimalSounds {
 
@@ -73,14 +74,73 @@ public class AnimalSounds {
 
         }
     } 
-}​
+}
 ```
 
 # Expressividade em Relação ao Java
 
 * A maioria dos comandos em Java podem ser utilizados no Groovy.
 
-* O Groovy possui suporte a Closures, tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ), dentre muitas outras funcionalidades.
+* O Groovy possui tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ) e isto não é possível em Java.
+
+**GroovyMoreExpressive.groovy** ( http://ideone.com/SDmQYd )
+``` Groovy
+/**
+Além da Tipagem Dinâmica, o Groovy possui suporte para Checagem de Overload em tempo de execução, 
+diferentemente do Java que é apenas em tempo de compilação.
+
+Saída:
+---- Tipagem Estatica: -----
+Boolean Arg.
+String Arg.
+Object Arg.
+---- Tipagem Dinamica: -----
+String Arg.
+Boolean Arg.
+
+*/
+
+String method (Boolean arg){
+	return "Boolean Arg."
+}
+
+String method(String arg){
+	return "String Arg."
+}
+
+String method(Object arg){
+	return "Object Arg."
+}
+
+// -- Tipagem Estática --
+
+println "---- Tipagem Estatica: -----"
+
+Object obj = true
+
+println method(obj)
+
+obj = "Igor"
+
+println method(obj)
+
+obj = new Object()
+
+println method(obj)
+
+
+// -- Tipagem Dinâmica
+
+println "---- Tipagem Dinamica: -----"
+
+dynamic = "Morse"
+
+println method(dynamic)
+
+dynamic = true
+
+println method(dynamic)
+```
 
 Com isto fica claro que o Groovy é mais expressivo em relação ao Java, as poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
 
@@ -118,12 +178,12 @@ Runnable run = { println 'run' }
 
 # Avaliação Comparativa entre o Groovy e Java
 
-Podemos notar grande diferença de redigibilidade e legibilidade entre o Groovy e o Java em um simples Hello World.
+Podemos notar grande diferença de redigibilidade entre o Groovy e o Java em um simples Hello World.
 
-**Hello World.java**
+**Hello World.java** ( http://ideone.com/N2rN9J )
 
 ``` java
-public class HelloWorld {
+class HelloWorld {
   public static void main(String[] args){   
 	String name = "Igor"; 
 	System.out.println("Hello " + name);
@@ -131,15 +191,17 @@ public class HelloWorld {
 }  
 ```
 
-**Hello World.groovy**
+**Hello World.groovy** ( http://ideone.com/OM6CF0 )
 ``` groovy
 name = "Igor"
 println "Hello, $name"
 ```
 
-Ou em programas mais complexos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista, neste caso é uma Lista com nomes de Wifi's. ( Os exemplos abaixo apresentarão o Código para imprimir, dado uma lista de nomes do tipo String, apenas os nomes com a seguinte formação: " UERJ- + Número de 1 a 9 + andar ". Ex: UERJ-3andar. )
+Ou em programas mais complexos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista. Neste caso é uma Lista com nomes de Wifi's. 
 
-**regEx.java**
+Os exemplos abaixo apresentarão o Código para imprimir, dado uma lista de nomes do tipo String, apenas os nomes com a seguinte formação: " UERJ- + Número de 1 a 9 + andar ". Ex: UERJ-3andar.
+
+**regEx.java** ( http://ideone.com/QlS51U )
 
 ``` java
 import java.util.regex.Matcher;
@@ -149,7 +211,7 @@ import java.util.regex.Pattern;
 	Classe que filtra Lista Wifi por uma Regra de Formação Específica.
 
 */
-public class regEx {
+class regEx {
 
 	public static void main(String[] args){
 	
@@ -170,7 +232,7 @@ public class regEx {
 }
 ```
 
-**regEx.groovy**
+**regEx.groovy** ( http://ideone.com/3tJjEI )
 
 ``` groovy
 wifiList = [ 'Subway', 'FulaninhoTal', 'WifiEstranho', 'UERJ-6andar', 'UERJ-7andar' ]
@@ -183,7 +245,7 @@ wifiList.each { wifi->
 ```
 
 
-* Observando os exemplos acima, temos que, sem dúvidas o Groovy possui maior facilidade para Escrita e Leitura do que o Java.
+Observando os exemplos acima, temos que, sem dúvidas o Groovy possui maior facilidade para Escrita em ambos os exemplos, especialmente no de Expressão Regular. Quanto a legibilidade, apesar do exemplo de Expressão Regular do Groovy parecer ser mais legível que o Java, ambos são igualmente legíveis.
 
 # Conclusão
 
@@ -192,6 +254,8 @@ Devido sua facilidade de integração o Groovy é utilizado em vários sistemas 
 Sua facilidade de uso e seus diversos recursos para facilitar a vida do programador deixam tentador o seu uso, porém o Groovy perde um pouco no requesito performance e este pode ser considerado seu ponto negativo.
 
 # Bibliografia
+
+https://ideone.com/
 
 http://groovy-lang.org/
 
@@ -202,3 +266,5 @@ https://en.wikipedia.org/wiki/Groovy_(programming_language)
 https://pt.wikipedia.org/wiki/Groovy
 
 http://grails.asia/groovy-each-examples
+
+http://bruceeckel.github.io/2015/10/17/are-java-8-lambdas-closures/

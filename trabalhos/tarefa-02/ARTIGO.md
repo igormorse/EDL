@@ -81,68 +81,63 @@ public class AnimalSounds {
 
 * A maioria dos comandos em Java podem ser utilizados no Groovy.
 
-* O Groovy possui tipagem dinâmica e estática, verificações em tempo de execução ( Por Exemplo sobrecarga de métodos verificada em tempo de execução ) e isto não é possível em Java.
+* O Groovy possui Closures, tipagem dinâmica e estática, interpolação de strings, verificações em tempo de execução, sobrecarga de métodos verificada em tempo de execução, operadores de métodos com ponteiros e Metaprogramação (**MOP**) em tempo de execução e isto **não é possível em Java**.
 
-**GroovyMoreExpressive.groovy** ( http://ideone.com/SDmQYd )
+Uma das funcionalidades mais interessantes do Groovy é a possibilidade de Metaprogramação Dinâmica, isto é, criação de objetos em tempo de execução e modificar classes em tempo de execução. O exemplo abaixo mostra o quanto poderoso é essa ferramenta:
+
+**MOP.groovy** ( http://ideone.com/dINzhx )
 ``` Groovy
-/**
-Além da Tipagem Dinâmica, o Groovy possui suporte para Checagem de Overload em tempo de execução, 
-diferentemente do Java que é apenas em tempo de compilação.
+/*
+ 
+	Com o uso da MetaProgramação, Tipagem Dinâmica e Closures é possível criar classes, modificar classes existentes ( Adicionar métodos e atributos ) em tempo de execução.
+ 
+	Saída:
+ 
+	Sou igor, estudo na uerj e tenho 23 anos.
+ 
+*/
+// Inicio da Modelagem da Classe
+ 
+pessoa = new Expando(nome:"Igor")
+ 
+pessoa.faculdade = "UERJ"
+ 
+pessoa.idade = 23
+
+pessoa.speak = { println "Sou $delegate.nome, estudo na $delegate.faculdade e tenho $delegate.idade anos." }
+ 
+// Fim da modelagem da classe
+ 
+// Chamada ao método Speak.
+pessoa.speak()
+```
+
+Neste exemplo, através de uma Classe chamada **Expando**, é possível projetar seus métodos e atributos em tempo de execução, utilizando-se da Tipagem dinâmica e Closures. É possível usar essa funcionalidade em Classes existentes e modificar em tempo de execução seu comportamento, como mostra o exemplo a seguir.
+
+**MOPString.groovy** ( http://ideone.com/7mPlS4 )
+``` Groovy
+/*
+
+Outro uso da Metaprogramação, adicionando um Método na Biblioteca existente de String e um Atributo.
 
 Saída:
----- Tipagem Estatica: -----
-Boolean Arg.
-String Arg.
-Object Arg.
----- Tipagem Dinamica: -----
-String Arg.
-Boolean Arg.
+
+igor estuda na uerj e tem 23
 
 */
 
-String method (Boolean arg){
-	return "Boolean Arg."
-}
+// Inserção de um Método na Classe String Padrão.
+String.metaClass.faculdade = { -> "$delegate estuda na uerj" }
 
-String method(String arg){
-	return "String Arg."
-}
+// Inserção de um Atributo na Classe String Padrão.
+String.metaClass.idade = 23
 
-String method(Object arg){
-	return "Object Arg."
-}
-
-// -- Tipagem Estática --
-
-println "---- Tipagem Estatica: -----"
-
-Object obj = true
-
-println method(obj)
-
-obj = "Igor"
-
-println method(obj)
-
-obj = new Object()
-
-println method(obj)
-
-
-// -- Tipagem Dinâmica
-
-println "---- Tipagem Dinamica: -----"
-
-dynamic = "Morse"
-
-println method(dynamic)
-
-dynamic = true
-
-println method(dynamic)
+println ('igor'.faculdade() + ' e tem ' + 'igor'.idade)
 ```
 
-Com isto fica claro que o Groovy é mais expressivo em relação ao Java, as poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
+Nesse caso, foi inserido um método e um atributo na **Classe String** existente para alterar seu comportamento. Isto poderia ser feito em métodos existentes na Classe ou até mesmo remover estes.
+
+As poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
 
 **Inicialização de Vetor em Java:**
 
@@ -174,32 +169,73 @@ Runnable run = () -> System.out.println("Run");
 Runnable run = { println 'run' }
 ```
 
-* O Groovy não possui Expressões Lambda, mas isso pode ser resolvido facilmente com o uso de Closures.
+O Groovy não possui Expressões Lambda, mas isso pode ser resolvido facilmente com o uso de Closures. Isto é, tudo o que pode ser feito em **Expressão Lambda** do **Java** pode ser feito em **Closures** do **Groovy** mas o contrário não necessariamente procede, devido a suas diferenças de implementação. Um exemplo da diferença entre eles é o conceito de **Delegação** em Closures do Groovy que **não há equivalência em Expressões Lambdas.**
+``` Groovy
+delegate corresponds to a third party object where methods calls or properties are resolved whenever the receiver of the message is not defined.
+
+Delegation is a key concept in Groovy closures which has no equivalent in lambdas. 
+```
+
+****Com isto fica claro que o Groovy é mais expressivo em relação ao Java.****
 
 # Avaliação Comparativa entre o Groovy e Java
 
-Podemos notar grande diferença de redigibilidade entre o Groovy e o Java em um simples Hello World.
+Podemos notar grande diferença de redigibilidade entre o Groovy e o Java em um simples programa para calcular a **Sequência de Fibonacci** até o termo **N**.
 
-**Hello World.java** ( http://ideone.com/N2rN9J )
+Nos exemplos abaixo, serão impressos a sequência de fibonacci até o 10º termo.
+
+**fibonacci.java** ( http://ideone.com/ReOeit )
 
 ``` java
-class HelloWorld {
-  public static void main(String[] args){   
-	String name = "Igor"; 
-	System.out.println("Hello " + name);
-  }
-}  
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* 
+
+Calcula 10 termos da série de Fibonacci.
+
+*/
+class Ideone {
+	
+	public static void main (String[] args) throws java.lang.Exception {
+		
+		for (int i = 0 ; i <= 10 ; i++)
+            System.out.println(String.valueOf(itFibN(i)));
+	}
+	
+	public static long itFibN(int n){
+		
+		 if (n < 2)
+		 	return n;
+		 long ans = 0;
+		 long n1 = 0;
+		 long n2 = 1;
+		 for(n--; n > 0; n--){
+		  ans = n1 + n2;
+		  n1 = n2;
+		  n2 = ans;
+		 }
+		 
+		 return ans;
+	}
+}
 ```
 
-**Hello World.groovy** ( http://ideone.com/OM6CF0 )
+**fibonacci.groovy** ( http://ideone.com/2NtyjA )
 ``` groovy
-name = "Igor"
-println "Hello, $name"
+def iFib = {
+    it == 0   ? println(0) 
+    : it == 1 ? println(1) 
+    : it > 1  ? println((2..it).inject([0,1]){i, j -> [i[1], i[0]+i[1]]}[1])
+    : println("Negativo nao pode"); return
+}
+ 
+0.upto(10,iFib)
 ```
+Ou em programas mais genéricos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista. Neste caso é uma Lista com nomes de Wifi's. 
 
-Ou em programas mais complexos, como por exemplo, utilizar expressões regulares para filtrar resultados em uma Lista. Neste caso é uma Lista com nomes de Wifi's. 
-
-Os exemplos abaixo apresentarão o Código para imprimir, dado uma lista de nomes do tipo String, apenas os nomes com a seguinte formação: " UERJ- + Número de 1 a 9 + andar ". Ex: UERJ-3andar.
+Os exemplos abaixo apresentarão o código para imprimir, dado uma lista de nomes do tipo String, apenas os nomes com a seguinte formação: " UERJ- + Número de 1 a 9 + andar ". Ex: UERJ-3andar.
 
 **regEx.java** ( http://ideone.com/QlS51U )
 
@@ -245,7 +281,7 @@ wifiList.each { wifi->
 ```
 
 
-Observando os exemplos acima, temos que, sem dúvidas o Groovy possui maior facilidade para Escrita em ambos os exemplos, especialmente no de Expressão Regular. Quanto a legibilidade, apesar do exemplo de Expressão Regular do Groovy parecer ser mais legível que o Java, ambos são igualmente legíveis.
+Observando os exemplos acima, temos que, sem dúvidas o Groovy possui maior **facilidade para Escrita** em ambos os exemplos. Quanto a legibilidade, apesar do exemplo de Expressão Regular do Groovy parecer ser mais legível que o Java, ambos são **igualmente legíveis**.
 
 # Conclusão
 
@@ -268,3 +304,13 @@ https://pt.wikipedia.org/wiki/Groovy
 http://grails.asia/groovy-each-examples
 
 http://bruceeckel.github.io/2015/10/17/are-java-8-lambdas-closures/
+
+http://mrhaki.blogspot.com.br/2009/10/groovy-goodness-expando-as-dynamic-bean.html
+
+http://stackoverflow.com/questions/4411815/add-method-to-metaclass
+
+http://stackoverflow.com/questions/220658/what-is-the-difference-between-a-closure-and-a-lambda
+
+http://groovy-lang.org/closures.html#_groovy_closures_vs_lambda_expressions
+
+http://groovy-lang.org/metaprogramming.html

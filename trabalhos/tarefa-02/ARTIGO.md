@@ -137,7 +137,7 @@ println ('igor'.faculdade() + ' e tem ' + 'igor'.idade)
 
 Nesse caso, foi inserido um método e um atributo na **Classe String** existente para alterar seu comportamento. Isto poderia ser feito em métodos existentes na Classe ou até mesmo remover estes.
 
-As poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
+ As poucas diferenças entre Java e Groovy conseguem ser facilmente resolvidas, como por exemplo, Inicialização de Vetores e Expressões Lambdas.
 
 **Inicialização de Vetor em Java:**
 
@@ -170,13 +170,22 @@ Runnable run = { println 'run' }
 ```
 
 O Groovy não possui Expressões Lambda, mas isso pode ser resolvido facilmente com o uso de Closures. Isto é, tudo o que pode ser feito em **Expressão Lambda** do **Java** pode ser feito em **Closures** do **Groovy** mas o contrário não necessariamente procede, devido a suas diferenças de implementação. Um exemplo da diferença entre eles é o conceito de **Delegação** em Closures do Groovy que **não há equivalência em Expressões Lambdas.**
+
 ``` Groovy
 delegate corresponds to a third party object where methods calls or properties are resolved whenever the receiver of the message is not defined.
 
 Delegation is a key concept in Groovy closures which has no equivalent in lambdas. 
 ```
 
-****Com isto fica claro que o Groovy é mais expressivo em relação ao Java.****
+**delegatePower.groovy** ( https://ideone.com/sM5hLy )
+``` groovy
+String.metaClass.modify = { delegate = it }
+
+// Saída: Mas vai sair outra 
+println 'Tenho uma String'.modify('Mas vai sair outra')
+```
+
+**Com isto fica claro que o Groovy é mais expressivo em relação ao Java.**
 
 # Avaliação Comparativa entre o Groovy e Java
 
@@ -285,7 +294,7 @@ Observando os exemplos acima, temos que, sem dúvidas o Groovy possui maior **fa
 
 # Conclusão
 
-Devido sua facilidade de integração o Groovy é utilizado em vários sistemas no mercado atualmente, principalmente em conjunto com sistemas em Java.
+Devido sua facilidade de integração, o Groovy é utilizado em vários sistemas no mercado atualmente, principalmente em conjunto com sistemas em Java.
 
 Sua facilidade de uso e seus diversos recursos para facilitar a vida do programador deixam tentador o seu uso, porém o Groovy perde um pouco no requesito performance e este pode ser considerado seu ponto negativo.
 

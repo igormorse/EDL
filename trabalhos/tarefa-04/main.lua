@@ -1,6 +1,15 @@
 screenWidth = love.graphics.getWidth()
 screenHeight = love.graphics.getHeight()
 
+--[[
+
+  Nome:                 Variavel "screenWidth"
+  Propriedade:          Valor
+  Binding Time:         Compilação
+  Explicação:           Em tempo de compilação pode ser feita a atribuição deste valor.
+
+]]
+
 -- Tamanho padrão dos Blocos.
 default_block_size = 20
 
@@ -9,6 +18,15 @@ high_score = 0
 
 -- Flag de Gameover.
 gameover = false
+
+--[[
+
+  Nome:                 Variavel "gameover"
+  Propriedade:          Endereço
+  Binding Time:         Compilação
+  Explicação:           Por ser uma variavel global, sua amarração será feita em tempo de compilação.
+
+]]
 
 -- Flag de Debug.
 debug = false
@@ -47,6 +65,8 @@ function love.load ()
     screenWidth-10,20,
     10,20
   }
+
+
 
   -- Iniciliza o Jogador.
   player = {
@@ -200,6 +220,24 @@ function love.load ()
     return ( player.pos.current.x + default_block_size >= block.pos.x ) and ( player.pos.current.x <= block.pos.x + default_block_size) and ( player.pos.current.y + default_block_size >= block.pos.y) and ( player.pos.current.y <= block.pos.y + default_block_size )
   end
 
+  --[[
+
+    Nome:                 Variavel "block"
+    Propriedade:          Endereço
+    Binding Time:         Execução
+    Explicação:           Como block é uma variável local da função blockCollision, então seu endereço só irá ser atribuido em tempo de execução.
+
+  ]]
+
+  --[[
+
+    Nome:                 Palavra "and"
+    Propriedade:          Semântica
+    Binding Time:         Design da Linguagem
+    Explicação:           A palavra and é uma palavra reservada do Lua, logo sua amarração foi feita em tempo de Design da Linguagem.
+
+  ]]
+
   function love.update (dt)
 
     -- Splash Screen sendo executada
@@ -207,6 +245,15 @@ function love.load ()
       splash:update(dt)
       return true
     end
+
+    --[[
+
+      Nome:                 Palavra "then"
+      Propriedade:          Semântica
+      Binding Time:         Design da Linguagem
+      Explicação:           A palavra then é uma palavra reservada do Lua, logo sua amarração foi feita em tempo de Design da Linguagem.
+
+    ]]
 
     -- Acumulador do dt.
     accumulator.current = accumulator.current + dt
@@ -250,6 +297,15 @@ function love.load ()
         tail.pos.x = player.pos.previous.x
         tail.pos.y = player.pos.previous.y
       end
+
+      --[[
+
+        Nome:                 Variavel "tail"
+        Propriedade:          Valor
+        Binding Time:         Execução
+        Explicação:           Como não sabemos qual vai ser o "rabo" da cobra, este valor só poderá ser atribuido em tempo de execução.
+
+      ]]
 
       -- Funcionamento do FILO ( First In Last Out )
       table.insert(player.body.blocks,1,tail)

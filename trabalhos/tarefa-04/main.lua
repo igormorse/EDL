@@ -1,15 +1,6 @@
 screenWidth = love.graphics.getWidth()
 screenHeight = love.graphics.getHeight()
 
---[[
-
-  Nome:                 Variavel "screenWidth"
-  Propriedade:          Valor
-  Binding Time:         Compilação
-  Explicação:           Em tempo de compilação pode ser feita a atribuição deste valor.
-
-]]
-
 -- Tamanho padrão dos Blocos.
 default_block_size = 20
 
@@ -114,6 +105,15 @@ function love.load ()
 
     -- Inicializa a comida no cenário.
     respawnPlayerFood()
+
+    --[[
+
+      Nome:                 Variavel "accumulator.limit"
+      Propriedade:          Valor
+      Binding Time:         Compilação
+      Explicação:           Em tempo de compilação será feita a atribuição deste valor, limit é fixo e não possui alterações durante a execução do progarma.
+
+    ]]
 
     -- Inicializa o limitador de tickRate.
     accumulator = {

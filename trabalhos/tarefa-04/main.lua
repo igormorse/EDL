@@ -10,7 +10,7 @@ high_score = 0
 -- Flag de Gameover.
 gameover = false
 
---[[
+--[[  Tarefa 05
 
   Nome:                 Variavel "gameover"
   Propriedade:          Endereço
@@ -31,13 +31,23 @@ loading = true
 
 function love.load ()
 
+  --[[  Tarefa 06
+
+      Tipo: Tupla
+
+  ]]
   -- Carregamento da Lib de splashscreen
-  splash = o_ten_one({fill="lighten",delay_after = 3})
+  splash = o_ten_one({"lighten",3})
   splash.onDone = function() loading = false end
 
   -- Título do Jogo.
-  love.window.setTitle("Snake Game" )
+  love.window.setTitle("Snake Game")
 
+  --[[  Tarefa 06
+
+      Tipo: Enumeração
+
+  ]]
   -- Sons do Jogo.
   sound_eating =  love.audio.newSource("eating.wav", "static")
   sound_gameover = love.audio.newSource("gameover.wav", "static")
@@ -48,6 +58,11 @@ function love.load ()
   -- Inicializa a Cor das Linhas de Demarcação do Cenário.
   love.graphics.setColor(0,0, 0)
 
+  --[[  Tarefa 06
+
+      Tipo: Array
+
+  ]]
   -- Define os limites do cenário na tela. ( Xi , Yi )
   scenarioLimits = {
     10,20,
@@ -59,6 +74,11 @@ function love.load ()
 
 
 
+  --[[  Tarefa 06
+
+      Tipo: Registro
+
+  ]]
   -- Iniciliza o Jogador.
   player = {
     pos = {
@@ -106,7 +126,7 @@ function love.load ()
     -- Inicializa a comida no cenário.
     respawnPlayerFood()
 
-    --[[
+    --[[ Tarefa 05
 
       Nome:                 Variavel "accumulator.limit"
       Propriedade:          Valor
@@ -114,7 +134,6 @@ function love.load ()
       Explicação:           Em tempo de compilação será feita a atribuição deste valor, limit é fixo e não possui alterações durante a execução do progarma.
 
     ]]
-
     -- Inicializa o limitador de tickRate.
     accumulator = {
       current = 0,
@@ -220,7 +239,7 @@ function love.load ()
     return ( player.pos.current.x + default_block_size >= block.pos.x ) and ( player.pos.current.x <= block.pos.x + default_block_size) and ( player.pos.current.y + default_block_size >= block.pos.y) and ( player.pos.current.y <= block.pos.y + default_block_size )
   end
 
-  --[[
+  --[[ Tarefa 05
 
     Nome:                 Variavel "block"
     Propriedade:          Endereço
@@ -229,7 +248,7 @@ function love.load ()
 
   ]]
 
-  --[[
+  --[[ Tarefa 05
 
     Nome:                 Palavra "and"
     Propriedade:          Semântica
@@ -246,7 +265,7 @@ function love.load ()
       return true
     end
 
-    --[[
+    --[[ Tarefa 05
 
       Nome:                 Palavra "then"
       Propriedade:          Semântica
@@ -298,7 +317,7 @@ function love.load ()
         tail.pos.y = player.pos.previous.y
       end
 
-      --[[
+      --[[ Tarefa 05
 
         Nome:                 Variavel "tail"
         Propriedade:          Valor

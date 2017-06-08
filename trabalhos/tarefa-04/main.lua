@@ -33,6 +33,7 @@ function love.load ()
 
   --[[  Tarefa 06
 
+      {"lighten",3}
       Tipo: Tupla
 
   ]]
@@ -45,6 +46,7 @@ function love.load ()
 
   --[[  Tarefa 06
 
+      "static" ou "stream"
       Tipo: Enumeração
 
   ]]
@@ -60,6 +62,7 @@ function love.load ()
 
   --[[  Tarefa 06
 
+      scenarioLimits = {}
       Tipo: Array
 
   ]]
@@ -76,6 +79,7 @@ function love.load ()
 
   --[[  Tarefa 06
 
+      player = {pos = {} ,...}
       Tipo: Registro
 
   ]]

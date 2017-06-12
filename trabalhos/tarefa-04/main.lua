@@ -103,6 +103,17 @@ function love.load ()
       size = 0,
       speed = 1400,
       gap = 1,
+
+      --[[ Tarefa 07
+
+        Array: blocks
+        Escopo: blocks é um array global.
+        Tempo de Vida: Desde a alocação até que ocorra uma colisão e o jogo seja reiniciado.
+        Alocação: Quando jogo é iniciado, é alocado inicialmente 4 blocos e a cada "comida" que a "snake" colide, mais um bloco é adicionado ao Array ( Atrás da cabeça ).
+        No próprio movimento da Snake é realizado uma inserção na primeira posição do Array.
+        Desalocação: Quando ocorre uma colisão entre o corpo da "snake" ocorre a desalocação de todo o array. O próprio movimento da Snake realiza a desalocação do último bloco do Array.
+
+      ]]
       blocks = {}
     }
   }
@@ -315,6 +326,10 @@ function love.load ()
 
       else
 
+        --[[ Tarefa 07
+
+            Realiza a remoção do último bloco para poder ser inserido novamente atras da "cabeça" da Snake.
+        ]]
         tail = table.remove(player.body.blocks,player.body.size)
 
         tail.pos.x = player.pos.previous.x
@@ -330,6 +345,12 @@ function love.load ()
 
       ]]
 
+      --[[ Tarefa 07
+
+          Realiza a inserção no array de blocos atrás da cabeça da snake para simular o movimento.
+
+          Pode ser tanto um bloco do próprio corpo quanto um bloco novo criado devido a colisão com a comida.
+      ]]
       -- Funcionamento do FILO ( First In Last Out )
       table.insert(player.body.blocks,1,tail)
 

@@ -52,8 +52,14 @@ medias = List.map media turma
 mediaaprovadas = List.map nome (List.filter aprovado turma)
 
 -- c) MÉDIA FINAL DOS ALUNOS DE "turma" (média de todas as médias)
---total: Float
---total = ...
+
+mediainception: Float -> Float -> Float
+mediainception x y = (x + y) 
+
+total: Float
+total = List.foldl mediainception 1 medias / 4
+
+-- main = text( toString total )
 
 -- d) LISTA DE ALUNOS QUE GABARITARAM A P1 ([("Maria",10,8), ...])
 gabarito: Aluno -> Bool
@@ -72,14 +78,24 @@ nomemedias a = (nome a,media a)
 aprovados2: List (String,Float)
 aprovados2 = List.map nomemedias (List.filter aprovado turma)
 
-main = text(toString aprovados2)
+-- main = text(toString aprovados2)
 
-{-
 -- f) LISTA COM TODAS AS NOTAS DE TODAS AS PROVAS ([7,4,10,8,...])  
 
-notas: List Float
-notas = ...
+notaeu: Aluno ->List
+notaeu (_,n1,n2) = (n1,n2)
 
+notamim = List.map notaeu turma
+
+main = text(toString notamim)
+
+notaturma: List -> List -> (Float,Float)
+notaturma x y = (x ++ y)
+
+notas: List Float
+notas = List.foldl notaturma [] notamim
+
+{-
 -- É permitido usar funções auxiliares, mas não é necessário.
 -- (As soluções são pequenas.)
 

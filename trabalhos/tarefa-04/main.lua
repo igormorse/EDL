@@ -118,13 +118,18 @@ function love.load ()
     }
   }
 
-  food = {
-    pos = {
-      x = nil,
-      y = nil
-    },
-    isAlive = false
-  }
+  --[[ Tarefa 08
+      Inicialização da Comida.
+  ]]
+  food = newFood()
+
+  -- food = {
+  --   pos = {
+  --     x = nil,
+  --     y = nil
+  --   },
+  --   isAlive = false
+  -- }
 
   print("Criei Corpo do Player! : " .. tostring(player.body.size) .. "    x: " .. tostring(player.pos.current.x) .. "    y: " .. tostring(player.pos.current.y))
 
@@ -138,8 +143,12 @@ function love.load ()
       table.insert(player.body.blocks, new_block)
     end
 
+    --[[ Tarefa 08
+        "Respawn" da Comida.
+    ]]
     -- Inicializa a comida no cenário.
-    respawnPlayerFood()
+    -- respawnPlayerFood()
+    food.respawn()
 
     --[[ Tarefa 05
 
@@ -154,6 +163,75 @@ function love.load ()
       current = 0,
       limit= 0.1
     }
+
+  end
+
+  --[[ Tarefa 08
+
+    Implementação de Closure e a co-rotina que movimenta a comida em forma retangular.
+
+  ]]
+  function newFood()
+
+    local x
+    local y
+    local speed = { x = 80, y = 100 }
+    local isAlive = false
+
+    local me; me = {
+
+      move = function (dx,dy)
+             x = x + dx
+             y = y + dy
+      end,
+      respawn = function()
+        x = love.math.random(20, screenWidth - 30)
+        y = love.math.random(20, screenHeight - 30)
+        isAlive = true
+      end,
+
+      colided = function(player)
+        return ( player.pos.current.x + default_block_size >= x ) and ( player.pos.current.x <= x + default_block_size) and ( player.pos.current.y + default_block_size >= y) and ( player.pos.current.y <= y + default_block_size )
+      end,
+
+      getPos = function()
+        return x,y
+      end,
+
+      getPosX = function()
+        return x
+      end,
+
+      getPosY = function()
+        return y
+      end,
+
+      getAlive = function()
+        return isAlive
+      end,
+      moveIt = coroutine.create(function (dt)
+            while (1==1) do
+      				for i=1, 180 do
+      					me.move( speed.x*dt, 0)
+      					dt = coroutine.yield()
+      				end
+      				for i=1, 50 do
+      					me.move( 0, speed.y*dt)
+      					dt = coroutine.yield()
+      				end
+      				for i=1, 180 do
+      					me.move( -speed.x*dt, 0)
+      					dt = coroutine.yield()
+      				end
+      				for i=1, 50 do
+      					me.move( 0, -speed.y*dt)
+      					dt = coroutine.yield()
+      				end
+            end
+        end),
+    }
+
+    return me
 
   end
 
@@ -211,6 +289,7 @@ function love.load ()
   end
 
   -- Atualiza a posição da Comida.
+  -- DEPRECATED
   function respawnPlayerFood()
 
     food.pos.x = love.math.random(20, screenWidth - 30)
@@ -280,6 +359,11 @@ function love.load ()
       return true
     end
 
+    --[[ Tarefa 08
+        Resume a Co-Rotina, permitindo que o jogo movimente de forma contínua retangular a comida sem parar o resto do jogo.
+    ]]
+    coroutine.resume(food.moveIt, dt)
+
     --[[ Tarefa 05
 
       Nome:                 Palavra "then"
@@ -317,12 +401,15 @@ function love.load ()
       end
 
       -- Colisão entre player e comida.
-      if (blockCollision(player,food)) then
+      --if (blockCollision(player,food)) then
+      if (food.colided(player)) then
 
         tail = playerAddBlock(player.pos.previous.x , player.pos.previous.y)
 
         love.audio.play( sound_eating )
-        respawnPlayerFood()
+
+        -- respawnPlayerFood()
+        food.respawn()
 
       else
 
@@ -398,9 +485,9 @@ function love.load ()
       drawPlayer()
 
       -- Desenho da Comida.
-      if (food.isAlive) then
+      if (food.getAlive()) then
         love.graphics.setColor(0,0,255)
-        love.graphics.rectangle( "fill", food.pos.x, food.pos.y, default_block_size, default_block_size )
+        love.graphics.rectangle( "fill", food.getPosX(), food.getPosY(), default_block_size, default_block_size )
       end
 
       if(gameover) then

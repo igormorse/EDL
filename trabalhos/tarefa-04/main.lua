@@ -75,7 +75,20 @@ function love.load ()
     10,20
   }
 
+  --[[ Tarefa 07
 
+    Array: scenarioObstacles
+
+    Escopo: blocks é um array global de blocos.
+
+    Tempo de Vida: Desde a alocação até o jogo seja reiniciado fazendo com que o load carregue novamente.
+
+    Alocação: Quando jogo é iniciado, é alocado inicialmente 1 bloco junto com o "respawn" da "comida" e a cada vez que a "snake" come a "comida" mais um bloco é adicionado.
+
+    Desalocação: A cada um certo período de tempo é removido um bloco dessa coleção.
+
+  ]]
+scenarioObstacles = {}
 
   --[[  Tarefa 06
 
@@ -104,16 +117,6 @@ function love.load ()
       speed = 1400,
       gap = 1,
 
-      --[[ Tarefa 07
-
-        Array: blocks
-        Escopo: blocks é um array global.
-        Tempo de Vida: Desde a alocação até que ocorra uma colisão e o jogo seja reiniciado.
-        Alocação: Quando jogo é iniciado, é alocado inicialmente 4 blocos e a cada "comida" que a "snake" colide, mais um bloco é adicionado ao Array ( Atrás da cabeça ).
-        No próprio movimento da Snake é realizado uma inserção na primeira posição do Array.
-        Desalocação: Quando ocorre uma colisão entre o corpo da "snake" ocorre a desalocação de todo o array. O próprio movimento da Snake realiza a desalocação do último bloco do Array.
-
-      ]]
       blocks = {}
     }
   }
@@ -188,6 +191,14 @@ function love.load ()
         x = love.math.random(20, screenWidth - 30)
         y = love.math.random(20, screenHeight - 30)
         isAlive = true
+
+        --[[ Tarefa 07
+
+          Criação do bloco de Obstáculos a cada vez que a comida renasce no jogo.
+          Ou seja no ínicio do jogo será inicializado um bloco de obstáculo e toda vez que a Snake comer um novo bloco aparecerá no jogo.
+
+        ]]
+        table.insert(scenarioObstacles,createBlock(x,y))
       end,
 
       colided = function(player)
@@ -273,16 +284,31 @@ function love.load ()
   function playerAddBlock(x,y)
 
     -- Estrutura do Novo Bloco.
-    new_block = {
-      pos = {
-        x = x,
-        y = y
-      }
-    }
+    new_block = createBlock(x,y)
 
     player.body.size = player.body.size + 1
 
     print("Criei Corpo no Player! : " .. tostring(player.body.size) .. "    x: " .. tostring(new_block.pos.x) .. "    y: " .. tostring(new_block.pos.y))
+
+    return new_block
+
+  end
+
+  function createBlock(x,y)
+
+    local new_block
+
+    -- Estrutura do Novo Bloco.
+    new_block = {
+      pos = {
+        x = x,
+        y = y
+      },
+      accumulator = {
+        current = 0,
+        limit = 1
+      }
+    }
 
     return new_block
 
@@ -400,6 +426,28 @@ function love.load ()
         end
       end
 
+      --[[  Tarefa 07
+
+        Loop que verifica a colisão dos blocos de obstáculos com a Snake.
+
+      ]]
+      for i,block in ipairs(scenarioObstacles) do
+        if (blockCollision(player,block) == true) then
+          player.body.speed = 0
+          gameOver()
+        end
+
+        --[[  Tarefa 07
+
+          Realiza a remoção desses blocos a cada um certo período de tempo acumulado.
+
+        ]]
+        block.accumulator.current = block.accumulator.current + dt
+        if (block.accumulator.current >= block.accumulator.limit) then
+          table.remove(scenarioObstacles,i)
+        end
+      end
+
       -- Colisão entre player e comida.
       --if (blockCollision(player,food)) then
       if (food.colided(player)) then
@@ -413,10 +461,6 @@ function love.load ()
 
       else
 
-        --[[ Tarefa 07
-
-            Realiza a remoção do último bloco para poder ser inserido novamente atras da "cabeça" da Snake.
-        ]]
         tail = table.remove(player.body.blocks,player.body.size)
 
         tail.pos.x = player.pos.previous.x
@@ -432,12 +476,6 @@ function love.load ()
 
       ]]
 
-      --[[ Tarefa 07
-
-          Realiza a inserção no array de blocos atrás da cabeça da snake para simular o movimento.
-
-          Pode ser tanto um bloco do próprio corpo quanto um bloco novo criado devido a colisão com a comida.
-      ]]
       -- Funcionamento do FILO ( First In Last Out )
       table.insert(player.body.blocks,1,tail)
 
@@ -490,6 +528,12 @@ function love.load ()
         love.graphics.rectangle( "fill", food.getPosX(), food.getPosY(), default_block_size, default_block_size )
       end
 
+      love.graphics.setColor(255,153,0)
+      for i,block in ipairs(scenarioObstacles) do
+        love.graphics.rectangle("fill", block.pos.x, block.pos.y, default_block_size, default_block_size)
+      end
+
+      love.graphics.setColor(0,0,255)
       if(gameover) then
         love.graphics.print("Press R to restart game", screenWidth/2 - 70, screenHeight/2)
       end
